@@ -32,6 +32,21 @@ npm start
 
 ---
 
+## 🔐 Administrative Access
+
+### Admin Registration Keys
+To register a new account with the **Admin** role, you must provide the access key:
+- **Local Development:** `cropcycle-admin`
+- **Production (Live):** `crop-logistics-admin-2026`
+
+### Test Account Credentials
+You can also log in to an existing test account to explore all features:
+- **Role:** Admin / Tester
+- **Phone:** `5551234567`
+- **Password:** `testpass123`
+
+---
+
 ## 🗄️ Database Connection
 
 ### Production Database
