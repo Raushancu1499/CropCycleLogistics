@@ -36,7 +36,7 @@ npm start
 
 ### Admin Registration Key
 To register a new account with the **Admin** role, you must provide the access key:
-- **Registration Key (All Environments):** `cropcycle-admin`
+- **Registration Key (All Environments):** `cropcycleadmin`
 
 ### Test Account Credentials
 You can also log in to an existing test account to explore all features:
