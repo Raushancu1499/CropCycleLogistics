@@ -39,12 +39,6 @@ To register a new account with the **Admin** role, you must provide the access k
 - **Security Key:** Refer to your **Render Environment Variables** (for production) or your local **.env** file.
 - **Note:** For security, this key is never stored in the public repository.
 
-### Test Account Credentials
-*(For demonstration purposes only)*
-- **Role:** Admin / Tester
-- **Phone:** `5551234567`
-- **Password:** `testpass123`
-
 ---
 
 ## 🗄️ Database Connection
