@@ -61,7 +61,7 @@ export default function Register() {
     <div className="auth-shell">
       <aside className="auth-aside">
         <div className="auth-copy">
-          <span className="brand-mark">CropCycle</span>
+          <span className="brand-mark">CropCycle Logistics</span>
           <h1>Create a supply network that feels organized from day one.</h1>
           <p>
             Whether you grow, source, or buy produce, CropCycle brings listings,

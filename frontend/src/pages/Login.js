@@ -32,7 +32,7 @@ export default function Login() {
     <div className="auth-shell">
       <aside className="auth-aside">
         <div className="auth-copy">
-          <span className="brand-mark">CropCycle</span>
+          <span className="brand-mark">CropCycle Logistics</span>
           <h1>Move farm supply with better visibility, matching, and less waste.</h1>
           <p>
             Track marketplace listings, demand requests, orders, insurance claims,
