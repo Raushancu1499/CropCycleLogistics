@@ -30,3 +30,5 @@ Thumbs.db
 
 # Uploads (runtime data, not source)
 backend/uploads/
+
+.vercel

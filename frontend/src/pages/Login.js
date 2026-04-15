@@ -102,7 +102,7 @@ export default function Login() {
           </form>
 
           <div className="inline-action-row">
-            New to CropCycle?
+            New to CropCycle Logistics?
             <button
               type="button"
               className="button button-secondary"
