@@ -13,16 +13,16 @@ CropCycle Logistics is a full-stack MERN application that connects farmers and b
 To run the project locally, you will need to open **two separate split terminals** in VS Code (you can split your terminal by pressing `Ctrl + Shift + 5`) and start both the backend server and the frontend web app.
 
 ### 1. Start the Backend API
-In your first terminal, install the dependencies and start the Node.js server:
+In your first terminal:
 ```bash
 cd backend
 npm install
 npm run dev
 ```
-*The backend API will start running on `http://localhost:5000` and confirm its connection to MongoDB.*
+*The backend API will start running on `http://localhost:5000`.*
 
 ### 2. Start the Frontend React App
-In your second split terminal, install the React dependencies and start the local development server:
+In your second terminal:
 ```bash
 cd frontend
 npm install
@@ -32,4 +32,29 @@ npm start
 
 ---
 
-**Note:** If you run into any errors starting up locally, ensure your `.env` variables located inside the `backend/.env` file contain your active MongoDB connection string.
+## 🗄️ Database Connection
+
+### Production Database
+The live application is already connected to **MongoDB Atlas Cloud**. Data entered via the live site is stored securely in the cloud cluster.
+
+### Local Development Setup
+To connect your local VS Code environment to a database, you have two options:
+
+#### Option A: Connect to Live Cloud Database (Recommended)
+This allows your local code to use the same data as the live website. Update `backend/.env` with your Atlas connection string:
+```env
+MONGO_URI=mongodb+srv://raushanbca998_db_user:raushanbca998@cluster0.hhpbwkq.mongodb.net/cropcycle?retryWrites=true&w=majority&appName=Cluster0
+```
+
+#### Option B: Use Local MongoDB (Offline)
+If you prefer to work offline, ensure you have MongoDB installed locally or run it via Docker:
+1. Open **MongoDB Compass**.
+2. Connect to `mongodb://127.0.0.1:27017`.
+3. Set your `backend/.env` to:
+   ```env
+   MONGO_URI=mongodb://127.0.0.1:27017/cropcycle
+   ```
+
+---
+
+**Note:** Always ensure your `backend/.env` file is present and contains the correct `MONGO_URI` before starting the server.
