@@ -35,11 +35,12 @@ npm start
 ## 🔐 Administrative Access
 
 ### Admin Registration Key
-To register a new account with the **Admin** role, you must provide the access key:
-- **Registration Key (All Environments):** `cropcycleadmin`
+To register a new account with the **Admin** role, you must provide the access key. 
+- **Security Key:** Refer to your **Render Environment Variables** (for production) or your local **.env** file.
+- **Note:** For security, this key is never stored in the public repository.
 
 ### Test Account Credentials
-You can also log in to an existing test account to explore all features:
+*(For demonstration purposes only)*
 - **Role:** Admin / Tester
 - **Phone:** `5551234567`
 - **Password:** `testpass123`
@@ -49,26 +50,24 @@ You can also log in to an existing test account to explore all features:
 ## 🗄️ Database Connection
 
 ### Production Database
-The live application is already connected to **MongoDB Atlas Cloud**. Data entered via the live site is stored securely in the cloud cluster.
+The live application is connected to your private **MongoDB Atlas Cloud** cluster. Connection settings are managed securely via Render Environment Variables.
 
 ### Local Development Setup
-To connect your local VS Code environment to a database, you have two options:
+To connect your local environment to a database, you must configure your **private** `backend/.env` file:
 
-#### Option A: Connect to Live Cloud Database (Recommended)
-This allows your local code to use the same data as the live website. Update `backend/.env` with your Atlas connection string:
-```env
-MONGO_URI=mongodb+srv://raushanbca998_db_user:raushanbca998@cluster0.hhpbwkq.mongodb.net/cropcycle?retryWrites=true&w=majority&appName=Cluster0
-```
+#### Option A: Connect to Cloud Database
+Update your local `backend/.env` with your Atlas connection string. 
+> [!NOTE]
+> You can find your connection string in the **MongoDB Atlas Dashboard** under "Connect".
 
 #### Option B: Use Local MongoDB (Offline)
-If you prefer to work offline, ensure you have MongoDB installed locally or run it via Docker:
 1. Open **MongoDB Compass**.
 2. Connect to `mongodb://127.0.0.1:27017`.
-3. Set your `backend/.env` to:
+3. Set your local `backend/.env` to:
    ```env
    MONGO_URI=mongodb://127.0.0.1:27017/cropcycle
    ```
 
 ---
 
-**Note:** Always ensure your `backend/.env` file is present and contains the correct `MONGO_URI` before starting the server.
+**Note:** Always ensure your `backend/.env` file (which is ignored by Git) contains the correct `MONGO_URI` and `ADMIN_ACCESS_KEY` before starting the server.

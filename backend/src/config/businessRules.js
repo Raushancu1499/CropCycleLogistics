@@ -5,7 +5,7 @@ export const MARKETPLACE_COMMISSION_RATE = Math.min(
 
 export const ADMIN_ACCESS_KEY =
   process.env.ADMIN_ACCESS_KEY ||
-  (process.env.NODE_ENV === "production" ? "" : "cropcycleadmin");
+  (process.env.NODE_ENV === "production" ? "" : "");
 
 export const INSURANCE_PLANS = [
   { name: "Kharif Crop Protection", premiumAmount: 499 },
