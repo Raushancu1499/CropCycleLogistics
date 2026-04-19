@@ -10,49 +10,70 @@ CropCycle Logistics is a full-stack MERN application that connects farmers and b
 
 ---
 
-## 🛠️ Technology Stack
+## 🏗️ Project Architecture
 
-### Frontend
+CropCycle Logistics is built on the **MERN Stack** (MongoDB, Express, React, Node.js), following a decoupled client-server architecture. This ensures a clear separation of concerns, making the platform highly scalable and maintainable.
+
+---
+
+## 🛠️ Technology Stack Deep-Dive
+
+### 🎨 Frontend Core
 - **React (v19)**
-  - **Why:** Used for its declarative component-based architecture which makes building complex UIs like the Farmer/Buyer dashboards efficient and scalable.
-  - **How:** Implemented using Functional Components, Hooks (`useState`, `useEffect`), and a modular file structure.
-  - **When:** Used throughout the entire user interface to manage application state and dynamic rendering.
-- **React Router Dom**
-  - **Why:** To enable seamless navigation without full page reloads, providing a smooth Single Page Application (SPA) experience.
-  - **How:** Used to define protected routes and handle navigation between dashboards and the marketplace.
-  - **When:** All client-side routing and access control logic.
+  - **Why:** To create a highly responsive and dynamic Single Page Application (SPA) that delivers a "premium" desktop-like experience for farmers and buyers.
+  - **How:** Leverages Functional Components and Hooks (`useState`, `useEffect`, `useContext`) for efficient state management and side effects.
+  - **When:** Powering every view in the application, from the interactive marketplace to the real-time notification engine.
+- **React Router Dom (v7)**
+  - **Why:** Essential for client-side navigation and implementing Role-Based Access Control (RBAC).
+  - **How:** Defines a declarative routing manifest with custom `ProtectedRoute` components to secure sensitive dashboard views.
+  - **When:** Used for all URL-based navigation and handling user redirects based on authentication state.
 - **Axios**
-  - **Why:** A robust promise-based HTTP client that simplifies error handling and API communication.
-  - **How:** Used to create instances that talk to the backend REST API.
-  - **When:** Every time the frontend needs to fetch or send data to the server.
+  - **Why:** Provides a cleaner API for HTTP requests compared to Fetch, with built-in support for request/response interceptors and automated JSON transformations.
+  - **How:** Centralized in an `api.js` utility to maintain consistency across all backend communications.
+  - **When:** Every time the frontend interacts with the backend REST API (Login, Order creation, Product updates).
+- **Lucide React**
+  - **Why:** A beautiful, lightweight, and highly customizable icon library that enhances the UI's professional aesthetic.
+  - **How:** Imported as SVG components, allowing for dynamic styling and perfect scaling on all screen sizes.
+  - **When:** Used throughout the dashboard sidebars, marketplace filters, and action buttons.
 
-### Backend
-- **Node.js & Express**
-  - **Why:** Provides a fast, non-blocking environment ideal for handling multiple concurrent requests in a logistics platform.
-  - **How:** Built as a RESTful API with structured routes, controllers, and middleware.
-  - **When:** Powers the central application logic and serves as the bridge between the database and the frontend.
-- **MongoDB & Mongoose**
-  - **Why:** A NoSQL database was chosen for its flexibility in handling varying crop data and notification schemas.
-  - **How:** Used Mongoose to define strict data models for Users, Orders, and Products.
-  - **When:** All data persistence, from user profiles to marketplace listings.
+### ⚙️ Backend Core
+- **Node.js & Express (v5)**
+  - **Why:** Chosen for its high-performance, non-blocking I/O model which is perfect for a logistics platform where speed is critical.
+  - **How:** Implements a modular MVC-style architecture with clear separation between Routes, Controllers, and Middleware.
+  - **When:** Serving the central API that handles all business logic, insurance processing, and order management.
+- **MongoDB & Mongoose (v8)**
+  - **Why:** The document-based structure allows for flexible "Crop" and "Requirement" schemas that can evolve as new agricultural products are added.
+  - **How:** Utilizes Mongoose for schema validation, data modeling, and deep population of related documents (e.g., linking Orders to Users and Products).
+  - **When:** Managing the lifecycle of every piece of data in the system.
 - **JSON Web Token (JWT)**
-  - **Why:** Enables secure, stateless authentication, allowing the backend to verify users without storing session data on the server.
-  - **How:** Integrated into the login/registration flow and verified via custom middleware on protected routes.
-  - **When:** During user login and for any action requiring authorization.
-- **Multer**
-  - **Why:** Specialized middleware for handling `multipart/form-data`, necessary for uploading images.
-  - **How:** Configured to store uploaded files in the `backend/uploads` directory.
-  - **When:** Used when farmers upload crop photos or buyers update their profile pictures.
+  - **Why:** Provides a secure, stateless way to handle user sessions, ensuring the backend can verify user identity across distributed systems.
+  - **How:** Tokens are signed with a server-side secret and stored in `localStorage` by the client, then verified via middleware on every protected request.
+  - **When:** Every authorized API call after a successful login.
 
-### DevOps & Tools
-- **Docker & Docker Compose**
-  - **Why:** Ensures that the "it works on my machine" problem is eliminated by containerizing the environment.
-  - **How:** Separate `Dockerfile`s for frontend and backend, managed by a root `docker-compose.yml`.
-  - **When:** Used for both local development setup and streamlining production deployments.
-- **Nginx**
-  - **Why:** Used as a high-performance web server and reverse proxy.
-  - **How:** Configured to serve the static production build of the React app and route traffic.
-  - **When:** Production deployment optimization.
+### 🔒 Security & Utilities
+- **BcryptJS**
+  - **Why:** Passwords must never be stored in plain text. Bcrypt provides industry-standard salted hashing to protect user data from breach.
+  - **How:** Automatically hashes passwords during user registration and performs secure comparisons during login.
+  - **When:** Active during the enrollment and authentication phases of the user lifecycle.
+- **PDFKit**
+  - **Why:** Essential for generating professional, printable logistics and insurance documents on-the-fly.
+  - **How:** Utilizes a custom PDF generation stream in the `insuranceController` to create dynamic certificates.
+  - **When:** Used when a farmer needs to download their digital insurance policy or a transaction receipt.
+- **Multer**
+  - **Why:** Handles complex `multipart/form-data` uploads (images and documents) with ease.
+  - **How:** Configured to save files to the server's disk while maintaining unique file naming to prevent collisions.
+  - **When:** Used during product listing (crop photos) and profile updates.
+
+---
+
+## 🔒 Security Best Practices
+
+Security is baked into every layer of CropCycle Logistics:
+1. **Password Hashing:** Utilizing `bcryptjs` with a cost factor of 10 to ensure collision-resistant security.
+2. **Environment Isolation:** All sensitive credentials (DB URLs, JWT Secrets) are managed via environment variables and are **never** committed to the codebase.
+3. **Stateless Auth:** JWT tokens provide a secure, expiration-based access system that prevents session hijacking.
+4. **Input Sanitization:** All user inputs are trimmed and validated via Mongoose schemas to prevent injection attacks.
+5. **RBAC:** Strict Role-Based Access Control ensures that Farmers cannot access Buyer data and vice-versa.
 
 ---
 
