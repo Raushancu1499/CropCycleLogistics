@@ -15,7 +15,7 @@ const createUserPayload = (user) => ({
 const createToken = (user) =>
   jwt.sign(
     { id: user._id, role: user.role, name: user.name },
-    process.env.JWT_SECRET || "dev_secret",
+    process.env.JWT_SECRET,
     { expiresIn: "7d" }
   );
 
