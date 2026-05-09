@@ -10,7 +10,7 @@ CropCycle Logistics is a full-stack MERN application that connects farmers and b
 - **Direct Marketplace:** Transparent matching of crops and buyer requirements.
 
 ## 🚀 Live Deployment
-- **Live Application:** [CropCycle Logistics Live Application](https://cropcycle-logistics-q1lmka0eu-raushancu1499s-projects.vercel.app/)
+- **Live Application:** [CropCycle Logistics Live Application](https://cropcycle-logistics.vercel.app/) *(Or check your Vercel Dashboard for the main production link)*
 - **Frontend Hosting:** Vercel
 - **Backend API Hosting:** Render
 - **Database:** MongoDB Atlas
