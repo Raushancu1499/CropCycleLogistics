@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { apiFetch, formatDate, getUser } from "../../utils/api";
-import { useOrderChat } from "../../utils/useSocket";
+import { apiFetch, formatDate, getUser } from "../utils/api";
+import { useOrderChat } from "../utils/useSocket";
 
 // ─── Inline styles (no external CSS dependency) ────────────────────────────
 const S = {
@@ -439,6 +439,20 @@ export default function ChatWidget({ unreadCount = 0 }) {
   useEffect(() => {
     if (open) loadInbox();
   }, [open, loadInbox]);
+
+  useEffect(() => {
+    const handleOpenChat = (e) => {
+      const order = e.detail;
+      setOpen(true);
+      setActiveChat({
+        orderId: order._id,
+        orderCode: order.orderCode || order._id.slice(-6).toUpperCase(),
+        partnerName: order.buyerId?.name || order.farmerId?.name || "User",
+      });
+    };
+    window.addEventListener("open-chat", handleOpenChat);
+    return () => window.removeEventListener("open-chat", handleOpenChat);
+  }, []);
 
   const handleSelectChat = (c) => {
     const user = getUser();

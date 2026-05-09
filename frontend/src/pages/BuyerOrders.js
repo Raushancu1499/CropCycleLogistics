@@ -151,13 +151,24 @@ export default function BuyerOrders() {
                 </span>
               </div>
 
-              <button
-                type="button"
-                className="button button-secondary"
-                onClick={() => setSelectedFarmer(order.farmerId?._id)}
-              >
-                Farmer details
-              </button>
+              <div className="button-row" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <button
+                  type="button"
+                  className="button button-secondary"
+                  onClick={() => window.dispatchEvent(new CustomEvent("open-chat", { detail: order }))}
+                >
+                  <span style={{ fontSize: "16px", marginRight: "6px" }}>💬</span>
+                  Message Farmer
+                </button>
+
+                <button
+                  type="button"
+                  className="button button-secondary"
+                  onClick={() => setSelectedFarmer(order.farmerId?._id)}
+                >
+                  Farmer details
+                </button>
+              </div>
             </article>
           ))}
 

@@ -158,6 +158,15 @@ export default function FarmerOrders() {
               </div>
 
               <div className="button-row">
+                <button
+                  type="button"
+                  className="button button-secondary"
+                  onClick={() => window.dispatchEvent(new CustomEvent("open-chat", { detail: order }))}
+                >
+                  <span style={{ fontSize: "16px", marginRight: "6px" }}>💬</span>
+                  Message Buyer
+                </button>
+
                 {order.status === "pending" ? (
                   <>
                     <button

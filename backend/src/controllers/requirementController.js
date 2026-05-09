@@ -432,6 +432,30 @@ export const selectRequirementResponse = async (req, res) => {
     markRequirementMatched(requirement, response);
     await requirement.save();
 
+    // Generate an official Order so the Farmer can track delivery and the Buyer can chat
+    const dummyProduct = await Product.create({
+      farmerId: response.farmerId,
+      name: requirement.productName,
+      category: "Vegetables", // default
+      unit: requirement.unit,
+      pricePerUnit: response.unitPrice,
+      quantity: response.proposedQuantity,
+      location: response.farmerLocation || "Unknown",
+      description: "Auto-generated from buyer requirement match",
+    });
+
+    const order = await Order.create({
+      buyerId: requirement.buyerId,
+      farmerId: response.farmerId,
+      productId: dummyProduct._id,
+      quantity: response.proposedQuantity,
+      deliveryMode: response.deliveryMode,
+      distanceKm: 0,
+      deliveryFee: 0,
+      totalCost: response.proposedQuantity * response.unitPrice,
+      status: "approved", // automatically approved since both agreed
+    });
+
     await sendNotification(
       response.farmerId,
       `Your response for ${requirement.productName} was selected by the buyer.`,
@@ -563,6 +587,30 @@ export const decideRequirement = async (req, res) => {
     markRequirementMatched(requirement, response);
 
     await requirement.save();
+
+    // Generate an official Order so the Farmer can track delivery and the Buyer can chat
+    const dummyProduct = await Product.create({
+      farmerId: response.farmerId,
+      name: requirement.productName,
+      category: "Vegetables",
+      unit: requirement.unit,
+      pricePerUnit: response.unitPrice,
+      quantity: response.proposedQuantity,
+      location: response.farmerLocation || "Unknown",
+      description: "Auto-generated from buyer requirement match",
+    });
+
+    const order = await Order.create({
+      buyerId: requirement.buyerId,
+      farmerId: response.farmerId,
+      productId: dummyProduct._id,
+      quantity: response.proposedQuantity,
+      deliveryMode: response.deliveryMode,
+      distanceKm: 0,
+      deliveryFee: 0,
+      totalCost: response.proposedQuantity * response.unitPrice,
+      status: "approved",
+    });
 
     await sendNotification(
       requirement.buyerId._id,
