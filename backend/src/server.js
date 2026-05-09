@@ -1,9 +1,11 @@
+import { createServer } from "http";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import { connectDB } from "./config/db.js";
+import { initSocket } from "./socketManager.js";
 import authRoutes from "./routes/authRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
@@ -12,6 +14,7 @@ import insuranceRoutes from "./routes/insuranceRoutes.js";
 import requirementRoutes from "./routes/requirementRoutes.js";
 import farmerRoutes from "./routes/farmerRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import chatRoutes from "./routes/chatRoutes.js";
 
 dotenv.config();
 connectDB();
@@ -37,6 +40,13 @@ app.use("/api/insurance", insuranceRoutes);
 app.use("/api/requirements", requirementRoutes);
 app.use("/api/farmers", farmerRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/chat", chatRoutes);
+
+// Wrap Express in an HTTP server so Socket.IO can share the same port
+const httpServer = createServer(app);
+initSocket(httpServer);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+httpServer.listen(PORT, () =>
+  console.log(`Server running on port ${PORT} (HTTP + WebSocket)`)
+);

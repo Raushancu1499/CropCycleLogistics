@@ -9,6 +9,7 @@ import {
   formatDate,
   statusLabel,
 } from "../utils/api";
+import { getSocket } from "../utils/useSocket";
 
 const toneClass = (status) => {
   if (status === "approved" || status === "delivered") return "success";
@@ -70,6 +71,8 @@ export default function FarmerOrders() {
         method: "PUT",
         body: JSON.stringify({ status }),
       });
+      // Emit real-time update so buyers see it instantly
+      getSocket().emit("update_delivery_status", { orderId: id, status });
       await loadOrders();
     } catch (updateError) {
       setError(updateError.message);

@@ -2,6 +2,13 @@
 
 CropCycle Logistics is a full-stack MERN application that connects farmers and buyers with a direct marketplace for agricultural supply chain visibility, crop matching, and order logistics.
 
+## ✨ Key Features
+- **Real-Time Order Chat:** Instant messaging between buyers and farmers using Socket.IO.
+- **Live Delivery Tracking:** Real-time push notifications for order delivery statuses without page reloads.
+- **Role-Based Dashboards:** Dedicated, secure interfaces for Farmers, Buyers, and Admins.
+- **Automated Insurance:** On-the-fly PDF generation for crop insurance policies.
+- **Direct Marketplace:** Transparent matching of crops and buyer requirements.
+
 ## 🚀 Live Deployment
 - **Live Application:** [CropCycle Logistics Live Application](https://cropcycle-logistics-q1lmka0eu-raushancu1499s-projects.vercel.app/)
 - **Frontend Hosting:** Vercel
@@ -49,6 +56,10 @@ CropCycle Logistics is built on the **MERN Stack** (MongoDB, Express, React, Nod
   - **Why:** Provides a secure, stateless way to handle user sessions, ensuring the backend can verify user identity across distributed systems.
   - **How:** Tokens are signed with a server-side secret and stored in `localStorage` by the client, then verified via middleware on every protected request.
   - **When:** Every authorized API call after a successful login.
+- **Socket.IO**
+  - **Why:** Enables real-time, bi-directional communication between the client and server without long-polling.
+  - **How:** Mounted on the same HTTP server as Express, securely authenticating users via JWT before they join order-specific rooms.
+  - **When:** Used for instant messaging between buyers and farmers, and pushing live delivery status updates.
 
 ### 🔒 Security & Utilities
 - **BcryptJS**
